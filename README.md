@@ -28,6 +28,17 @@ dependencies: [
 ]
 ```
 
+### Adding the necessary permissions
+
+This library makes use of the macOS Accessibility API. To use it, you need to disable the App Sandbox.
+
+You can optionally also get extra data from browsers (like the current URL), which requires `com.apple.security.automation.apple-events` entitlement. You will also need to add the following to your `Info.plist`:
+
+```xml
+<key>NSAppleEventsUsageDescription</key>
+<string>$(PRODUCT_NAME) needs this permission to track detailed information like the current website URL.</string>
+```
+
 ## Getting started 🚀
 
 The easiest way to get started is to define a delegate and start reacting to events:
