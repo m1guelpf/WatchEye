@@ -4,7 +4,7 @@
 [![Swift Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fm1guelpf%2FWatchEye%2Fbadge%3Ftype%3Dswift-versions&color=brightgreen)](https://swiftpackageindex.com/m1guelpf/WatchEye)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/m1guelpf/WatchEye/main/LICENSE)
 
-This library sits on top of the macOS Accessibility API, making it easy to react when the user changes the active application, or when the window the user is focused on changes its title. This is very convenient when building time-tracking applications.
+This library sits on top of the macOS Accessibility API, making it easy to react when the user changes the active application, or when the window the user is focused on changes its title. It also includes some basic utilities for working with browsers.
 
 ## Installation
 
@@ -56,7 +56,13 @@ extension ExampleWatchEyeDelegate: WatchEyeDelegate {
     }
 
 	func watchEye(_: WatchEye, didChangeTitleOf app: NSRunningApplication, newTitle title: String) {
+        if app.browser?.isIncognito(windowTitle: title) == true { return }
+
 		print("Title of \(app.bundleIdentifier!) changed to \(title)")
+
+        if let url = app.browser?.getURL() {
+			print("URL of \(app.bundleIdentifier!) is now \(url)")
+		}
 	}
 }
 ```
